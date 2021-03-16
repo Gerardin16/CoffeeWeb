@@ -1,0 +1,38 @@
+
+
+@charset "ISO-8859-1";
+	body {
+    background-color: #8f7162;
+    font-family: 'Trebuchet MS', 'Gill Sans MT', Calibri, 'Gill Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;
+  
+}
+
+.page-title{
+    margin-top:75px;
+    text-align: center;
+} 
+.page-title h2{
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 0;
+    font-size: 68px;;
+    font-weight: 900;
+    text-transform: uppercase;
+    
+}
+.coffeeimg{
+	float:right;
+	width:300px;
+}
+.tblStyle{
+
+	width:50%;
+	margin:0px 300px ;
+	text-align:center;
+}
+
+

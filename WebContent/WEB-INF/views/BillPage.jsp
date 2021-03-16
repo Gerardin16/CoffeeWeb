@@ -27,7 +27,7 @@
                  <p>Your Order number is ${orderNum}</p>
                   <form action="./" method="post" >
                      
-					     <table class="tblStyle">
+					     <table class="tblStyle" >
 					  	<tr> 
 					  		<td>Total Value </td>
 					  		<td>${bills.get(0)}</td>

@@ -52,7 +52,7 @@ public class CoffeeController {
     private CoffeeSizeServiceInterface coffeeSize;
 	@Autowired
     private CoffeeTypeServiceInterface coffeeType;
-	private BeverageHelper bvhelper;
+	
 
 
     String OrderNum;

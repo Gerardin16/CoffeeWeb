@@ -37,7 +37,7 @@ private SessionFactory sessionFactory;
 		Transaction transaction=session.beginTransaction();
 		
 		
-		Query<CoffeeVoucher> query = session.createQuery("from CoffeeVoucher where voucherCode <> 'DUMMY'");
+		Query<CoffeeVoucher> query = session.createQuery("from CoffeeVoucher where voucherId <> 0");
 		       
 		List<CoffeeVoucher> coffeeVouchers=query.getResultList();
 		transaction.commit();

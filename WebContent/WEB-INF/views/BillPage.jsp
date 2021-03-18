@@ -24,6 +24,7 @@
     <div class="container-fluid">
             <div class="row">
                 <div class="page-title">
+                <p>Hi ${name}</p>
                  <p>Your Order number is ${orderNum}</p>
                   <c:if test = "${not empty voucher}">
          			<p>Your discount voucher code is ${voucher}</p>

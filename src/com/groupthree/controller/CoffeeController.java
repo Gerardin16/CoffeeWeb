@@ -38,7 +38,7 @@ import com.groupthree.util.OrderDetails;
 
 
 @Controller
-@SessionAttributes({"custid","type","size","addon","custName"})
+@SessionAttributes({"custid","type","size","addon","custName","secondtype","secondsize","secondaddon"})
 
 public class CoffeeController {
 	
@@ -66,6 +66,7 @@ public class CoffeeController {
 	 String sizeChoice=null;
 	 String addOnChoice=null;
 	 String voucherCode=null;
+	 String personName;
 	@RequestMapping("/")
 	public ModelAndView mainPageController() {
 //		searchPersonController();
@@ -82,7 +83,7 @@ public class CoffeeController {
 		ArrayList<PersonDetails> person;
 		ModelAndView mv=new ModelAndView();
 		long phnum=Long.parseLong(request.getParameter("phoneNo"));
-		String personName;
+		
 		int pid;
 		try {
 			person=personDetails.searchRecordByPhoneno(phnum);
@@ -91,8 +92,8 @@ public class CoffeeController {
 				 for(PersonDetails per:person){
 					personName=per.getPersonName();
 					pid=per.getpId();
-					mv.addObject("custName",personName);
-//					session.setAttribute("custName",personName);
+//					mv.addObject("custName",personName);
+					session.setAttribute("custName",personName);
 //					mv.addObject("custid",pid);
     				mv.setViewName("order");
     				session.setAttribute("custid",pid);
@@ -139,8 +140,8 @@ public class CoffeeController {
 					 for(PersonDetails per:person){
 						personName=per.getPersonName();
 						pid=per.getpId();
-						mv.addObject("custName",personName);
-//						session.setAttribute("custName",personName);
+//						mv.addObject("custName",personName);
+						session.setAttribute("custName",personName);
 //						mv.addObject("custid",pid);
 	    				mv.setViewName("order");
 	    				session.setAttribute("custid",pid);
@@ -210,7 +211,7 @@ public class CoffeeController {
 			 typeChoice=request.getParameter("cotype");
 			 sizeChoice=request.getParameter("cosize");
 			 addOnChoice=request.getParameter("coadd");
-			 if(typeChoice!=null && sizeChoice!=null && addOnChoice!=null )
+			 if(!typeChoice.isEmpty() && !sizeChoice.isEmpty() && !addOnChoice.isEmpty() )
 			 {
 					 for(CoffeeType type:coffeeTypeList){
 				            if (typeChoice.equalsIgnoreCase(type.getCoffeeName().toString())) {
@@ -223,7 +224,7 @@ public class CoffeeController {
 				                   selectedCoffeeSize=size.getCoffeeSizeId();
 				                }
 				            }
-				            if(!(addOnChoice.equals(null)))
+				            if(!addOnChoice.isEmpty())
 				            {
 					            for(CoffeeAddon addon:coffeeAddonList){
 					                if (addOnChoice.equalsIgnoreCase(addon.getCoffeeAddonName().toString()))  {
@@ -249,12 +250,12 @@ public class CoffeeController {
 		@RequestMapping(path="/processAddon",params="AddOne", method=RequestMethod.POST)
 		public ModelAndView addAddOnMoreController(HttpServletRequest request,HttpSession session) {
 			try {
-				selectedCoffeeType = Integer.parseInt(session.getAttribute("type").toString());
-				 selectedCoffeeSize = Integer.parseInt(session.getAttribute("size").toString());
+//				selectedCoffeeType = Integer.parseInt(session.getAttribute("type").toString());
+//				 selectedCoffeeSize = Integer.parseInt(session.getAttribute("size").toString());
 				 ArrayList<CoffeeAddon> coffeeAddonList=coffeeAddon.getCoffeeAddon();
 				 addOnChoice=request.getParameter("coadd");
 				 Integer userid = Integer.parseInt(session.getAttribute("custid").toString());
-			            if(!(addOnChoice.equals(null)))
+			            if(!addOnChoice.isEmpty())
 			            {
 				            for(CoffeeAddon addon:coffeeAddonList){
 				                if (addOnChoice.equalsIgnoreCase(addon.getCoffeeAddonName().toString()))  {
@@ -267,9 +268,9 @@ public class CoffeeController {
 			            	selectedAddon=0;
 			            
 			            transactionService.createCoffeeOrder(userid,OrderNum,selectedCoffeeType,selectedCoffeeSize,selectedAddon);
-			            session.setAttribute("type",selectedCoffeeType);
-						session.setAttribute("size",selectedCoffeeSize);
-						session.setAttribute("addon",selectedAddon);
+//			            session.setAttribute("type",selectedCoffeeType);
+//						session.setAttribute("size",selectedCoffeeSize);
+//						session.setAttribute("size",selectedAddon);
 //				checkOrder(request, session);
 			}
 			 catch (ClassNotFoundException | SQLException e) {
@@ -293,14 +294,15 @@ public class CoffeeController {
 		}
 		@RequestMapping(path="/generateBill", method=RequestMethod.POST)
 		public ModelAndView generateBillController(HttpServletRequest request,HttpSession session,SessionStatus status) {
-			
+			 
 			ModelAndView mv=new ModelAndView();
 			try {
 			
 				 ArrayList<CoffeeVoucher> coffeeVoucherList=coffeeVoucher.getCoffeeVoucher();
 				 voucherCode=request.getParameter("voucher");
 				 Integer userid = Integer.parseInt(session.getAttribute("custid").toString());
-			            if(!(voucherCode.equals(null)))
+				 String userName = session.getAttribute("custName").toString();
+			            if(!voucherCode.isEmpty())
 			            {
 			            	for(CoffeeVoucher voucher:coffeeVoucherList)
 			                    if (voucherCode.equalsIgnoreCase(voucher.getVoucherCode().toString())) {
@@ -317,6 +319,7 @@ public class CoffeeController {
 			            mv.addObject("allOrders", orders);
 			            mv.addObject("orderNum",OrderNum);
 			            mv.addObject("bills",bill);
+			            mv.addObject("name",userName);
 			            mv.setViewName("BillPage");
 			            status.setComplete();
 			            

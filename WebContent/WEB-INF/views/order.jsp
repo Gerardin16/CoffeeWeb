@@ -22,8 +22,8 @@
         </div>
     </header>
     <section>
-    <%String name=(String)session.getAttribute("custName"); %>  
-    	 <p>Welcome ${custName}</p>
+    <%String name=(String)session.getAttribute("custName");  
+    	out.print("Welcome "+name);%> 
     	<div >
     		<form action="./processOrder" method="post"> 
                      <div class="form-group">

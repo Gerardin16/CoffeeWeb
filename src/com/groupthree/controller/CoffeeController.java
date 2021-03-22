@@ -85,7 +85,7 @@ public class CoffeeController {
 		long phnum=Long.parseLong(request.getParameter("phoneNo"));
 		
 		int pid;
-		try {
+		
 			person=personDetails.searchRecordByPhoneno(phnum);
 			if(person.size()!=0) 
 			{
@@ -109,10 +109,7 @@ public class CoffeeController {
 			 mv.setViewName("addCustomer");
 		}
 			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		
 		return mv;
@@ -132,7 +129,7 @@ public class CoffeeController {
 			long phnum=Long.parseLong((String)request.getParameter("custNo"));
 			String personName=request.getParameter("newPerson");
 			int pid;
-			try {
+			
 				personDetails.insertPerson(personName,phnum);
 				person=personDetails.searchRecordByPhoneno(phnum);
 				if(person.size()!=0) 
@@ -150,10 +147,7 @@ public class CoffeeController {
 				}
 				
 				
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			
 			
 			return mv;
@@ -249,7 +243,7 @@ public class CoffeeController {
 		}
 		@RequestMapping(path="/processAddon",params="AddOne", method=RequestMethod.POST)
 		public ModelAndView addAddOnMoreController(HttpServletRequest request,HttpSession session) {
-			try {
+		
 //				selectedCoffeeType = Integer.parseInt(session.getAttribute("type").toString());
 //				 selectedCoffeeSize = Integer.parseInt(session.getAttribute("size").toString());
 				 ArrayList<CoffeeAddon> coffeeAddonList=coffeeAddon.getCoffeeAddon();
@@ -272,11 +266,7 @@ public class CoffeeController {
 //						session.setAttribute("size",selectedCoffeeSize);
 //						session.setAttribute("size",selectedAddon);
 //				checkOrder(request, session);
-			}
-			 catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			return new ModelAndView("AddAddon");
 
 		}
@@ -296,7 +286,7 @@ public class CoffeeController {
 		public ModelAndView generateBillController(HttpServletRequest request,HttpSession session,SessionStatus status) {
 			 
 			ModelAndView mv=new ModelAndView();
-			try {
+			
 			
 				 ArrayList<CoffeeVoucher> coffeeVoucherList=coffeeVoucher.getCoffeeVoucher();
 				 voucherCode=request.getParameter("voucher");
@@ -323,11 +313,7 @@ public class CoffeeController {
 			            mv.setViewName("BillPage");
 			            status.setComplete();
 			            
-			}
-			 catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			return mv;
 
 		}

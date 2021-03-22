@@ -3,6 +3,7 @@ package com.groupthree.dao;
 
 import com.groupthree.bean.CoffeeAddon;
 
+
 import com.groupthree.bean.CoffeeBill;
 import com.groupthree.bean.CoffeeOrder;
 import com.groupthree.bean.CoffeeSize;
@@ -18,10 +19,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,7 +37,7 @@ public class BillTransactionDao implements BillTransactionDaoInterface {
 
 	@Override
     public void createOrder(int person,String orderNum, int selectedCoffeeType, int selectedCoffeeSize, int selectedAddon)
-            throws ClassNotFoundException, SQLException {
+             {
         
        
 		Session session=sessionFactory.openSession();
@@ -65,7 +62,7 @@ public class BillTransactionDao implements BillTransactionDaoInterface {
     }
 
 	@Override
-	public double getOrders(int person,String initialOrderNum) throws SQLException, ClassNotFoundException {
+	public double getOrders(int person,String initialOrderNum)  {
 		 double totalSum=0.0;
 		
 		Session session=sessionFactory.openSession();
@@ -86,7 +83,7 @@ public class BillTransactionDao implements BillTransactionDaoInterface {
 	}
 
 	@Override
-	public void createBill(int person,String initialOrderNum, int selectedVoucher, double totalBill) throws SQLException, ClassNotFoundException {
+	public void createBill(int person,String initialOrderNum, int selectedVoucher, double totalBill)  {
 		
 		Session session=sessionFactory.openSession();
 		

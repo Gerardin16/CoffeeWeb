@@ -23,14 +23,14 @@ private SessionFactory sessionFactory;
 
 
     @Override
-    public ArrayList<CoffeeAddon> getCoffeeAddon() throws ClassNotFoundException, SQLException {
+    public ArrayList<CoffeeAddon> getCoffeeAddon()  {
     	
 		Session session=sessionFactory.openSession();
 		
 		Transaction transaction=session.beginTransaction();
 		
 		
-		Query<CoffeeAddon> query = session.createQuery("from CoffeeAddon where coffeeAddonId <> 0");
+		Query<CoffeeAddon> query = session.createQuery("from CoffeeAddon where coffeeAddonId<>0");
 		       
 		List<CoffeeAddon> coffeeAddons=query.getResultList();
 		transaction.commit();
